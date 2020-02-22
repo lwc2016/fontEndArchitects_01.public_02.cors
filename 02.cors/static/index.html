@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <section>
+            <h3>ajax方式请求数据</h3>
+            <button id="button1">get方式获取数据</button>
+            <button id="button2">post方式提交数据</button>
+        </section>
+        <section>
+            <h3>fetch方式请求数据</h3>
+            <button id="button3">get方式获取数据</button>
+            <button id="button4">post方式提交数据</button>
+        </section>
+    </div>
+    <script>
+        const button1 = document.querySelector("#button1");
+        button1.onclick = function(){
+            // 创建xhr对象
+            const xhr = new XMLHttpRequest();
+            // 监听状态变化
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200 || xhr === 304){
+                        const resp = xhr.response;
+                        console.log(resp);
+                    }
+                }
+            }
+            // 设置请求方式和请求地址
+            xhr.open("GET", "http://localhost:8080/detail", true);
+            // 发送请求
+            xhr.send();
+        }
+
+
+        const button2 = document.querySelector("#button2");
+        button2.onclick = function(){
+            // 创建xhr对象
+            const xhr = new XMLHttpRequest();
+            // 监听状态变化
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200 || xhr === 304){
+                        const resp = xhr.response;
+                        console.log(resp)
+                        console.log(xhr.getResponseHeader("name"));
+                    }
+                }
+            }
+            // 携带cookie信息
+            xhr.withCredentials = true;
+            // 设置请求方式和请求地址
+            xhr.open("post", "http://localhost:8080/add");
+            // 默认是application/json格式
+            // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // 设置请求数据格式为json
+            xhr.setRequestHeader("Content-type", "application/json");
+            // 请求头设置token
+            xhr.setRequestHeader("token", (Math.random() * 100000000).toFixed(0));
+            // 发送请求
+            const form = {
+                name: "jack",
+                age: 26,
+                email: "jack1829@qq.com"
+            }
+            const querystring = Object.keys(form).map(key => [key, form[key]].join("=")).join("&");
+            xhr.send(JSON.stringify(form));
+        }
+
+        const button3 = document.getElementById("button3");
+        button3.onclick = async function(){
+            const resp = await fetch("http://localhost:8080/detail");
+            const data = await resp.json();
+            console.log(data);
+        }
+
+        const button4 = document.getElementById("button4");
+        button4.onclick = async function(){
+            const resp = await fetch("http://localhost:8080/add", {
+                method: "POST",
+                body: JSON.stringify({name: "Lucy"}),
+                headers: {
+                    "Content-type": "application/json"
+                },
+                credentials: "include"
+            })
+            const data = await resp.json();
+            console.log(data);
+        }
+    </script>
+</body>
+</html>

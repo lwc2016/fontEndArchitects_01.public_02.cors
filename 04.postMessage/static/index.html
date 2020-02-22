@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        iframe{
+            width: 100%;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <h3>这是http://localhost:3030域下面的页面</h3>
+    <iframe class="iframe" src="http://localhost:8080/detail.html" frameborder="0"></iframe>
+
+    <script>
+        const iframe = document.querySelector(".iframe");
+        iframe.onload = function(){
+            iframe.contentWindow.postMessage("i love you", "http://localhost:8080");
+        }
+
+        window.onmessage = function(event){
+            console.log("这是http://localhost:3030/index.html页面", event.data);
+        }
+    </script>
+</body>
+</html>

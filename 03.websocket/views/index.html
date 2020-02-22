@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h3 class="brand">聊天室</h3>
+            <div class="right">
+                <input type="hidden" id="id" value={{user.id}} />
+                <span>{{user.nickName}}，欢迎登录</span>
+                <a href="/logout">退出登录</a>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="content">
+            <div class="list">
+                <div class="list-inner">
+                    
+                </div>
+            </div>
+            <form class="form">
+                <textarea class="input" name="" id=""></textarea>
+                <button class="send">发送</button>
+            </form>
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+</body>
+</html>

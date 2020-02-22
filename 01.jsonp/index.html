@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <button id="button">获取信息</button>
+    </div>
+    <script src="./jsonp.js"></script>
+    <script>
+        const button = document.querySelector("#button");
+        /*
+        button.onclick = function(){
+            const script = document.createElement("script");
+            script.src = "http://localhost:3030/detail?callback=getDetail";
+            document.body.append(script);
+            window.getDetail = function(data){
+                document.body.removeChild(script);
+                console.log(data);
+            }
+        }
+        */
+        button.onclick = function(){
+            jsonp({
+                url: "http://localhost:3030/detailddd",
+                callback: "callback"
+            }).then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+    </script>
+</body>
+</html>
